@@ -1,0 +1,17 @@
+#navbar {
+    width: 100%;
+    height: 50px;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    align-content: flex-start;
+}
+
+.navElem {
+    text-decoration: none;
+    color: #fff;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+}
