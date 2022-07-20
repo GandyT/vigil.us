@@ -17,11 +17,6 @@ App.use(cors());
 App.use(BodyParser.json());
 App.use(BodyParser.urlencoded({ extended: false }));
 
-/* CATCH ALL FRONTEND */
-App.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/../frontend/build/index.html'));
-});
-
 /* ROUTES */
 let files = Fs.readdirSync("routes");
 files.forEach(file => {
@@ -29,6 +24,11 @@ files.forEach(file => {
         let data = require(`./routes/${file}`);
         App.use(`/api/${data.path}`, data.router);
     }
+});
+
+/* CATCH ALL FRONTEND */
+App.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../frontend/build/index.html'));
 });
 
 App.listen(port, console.log(`App listening on port ${port}`));

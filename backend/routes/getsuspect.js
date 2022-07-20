@@ -6,13 +6,15 @@ const DataManager = require("../modules/DataManager.js");
 Router.get("/", async (req, res) => {
     let requestIp = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     let id = req.query.id;
+    let token = req.query.token;
 
-    if (!id) return res.status(401).send({ success: false, error: "Missing Id" });
+    if (!id) return res.send({ success: false, error: "Missing Id" });
 
-    let data = DataManager.GetSuspectData(id);
-    if (!data) return res.status(401).send({ success: false, error: "Invalid Suspect Id" });
+    let data = await DataManager.GetSuspectData(id);
+    if (!data) return res.send({ success: false, error: "Invalid Suspect Id" });
+    if (data.authToken != token) return res.send({ success: false, error: "Invalid Verification" });
 
-    res.status(200).send({ success: true, data: data });
+    res.send({ success: true, d: data });
 });
 
 module.exports = {

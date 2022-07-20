@@ -46,7 +46,7 @@ export default class Login extends React.Component {
                     <div id="loginTitle">Login</div>
                     <div id="loginHolder">
                         <input id="loginInput" placeholder="Input Token" onChange={this.onChange} />
-                        <button id="loginInputBtn">Login</button>
+                        <button id="loginInputBtn" onClick={this.login}>Login</button>
                         <div id="loginInputMessage">Input your 12 digit token</div>
                     </div>
                 </div>

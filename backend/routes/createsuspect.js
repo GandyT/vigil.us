@@ -13,26 +13,28 @@ Router.post("/", async (req, res) => {
         name: String,
         age: Number,
         address: String,
-        socials: [{type: "twitter", url: ""}, {type: "instagram", url: ""}, {type: "youtube", "url"}]
+        socials: {"twitter": url, "instagram": url, "youtube": url}
         description: String, (what caused them to be suspcious)
-        files: [], <- additional proof if needed
+        files: [], <- additional proof if needed <- first upload file to backend server, then save url
         BACKEND_GENERATED
-        date_reported: DateManager.GetFormattedDate(),
+        dateReported: DateManager.GetFormattedDate(),
         reported_by: token
     }
     */
 
     let token = req.body.token;
-    if (!token) return res.status(401).send({ success: false, error: "No Auth Token" });
+    if (!token) return res.send({ success: false, error: "No Auth Token" });
 
-    let data = GetUserData(token);
-    if (!data) return res.status(401).send({ success: false, error: "Invalid Auth Token" });
+    let data = await DataManager.GetUserData(token);
+    if (!data) return res.send({ success: false, error: "Invalid Auth Token" });
 
-    let id = await DataManager.CreateSuspect();
+    suspectData.authToken = token;
+    suspectData.dateReported = DataManager.GetFormattedDate();
+    let id = await DataManager.CreateSuspect(suspectData);
     data.suspects.push(id);
     await DataManager.UpdateUserData(token, data);
 
-    res.status(200).send({ success: true, id: id });
+    res.send({ success: true, id: id, date: suspectData.dateReported });
 });
 
 module.exports = {

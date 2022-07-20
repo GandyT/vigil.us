@@ -1,6 +1,4 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
-import SessionManager from "../../SessionManager.js";
 import "../../App.css";
 import "../login/login.css";
 import * as Axios from "axios";
@@ -10,7 +8,7 @@ export default class Login extends React.Component {
         super(props);
         this.state = {
             email: "",
-            redirect: ""
+            signup: false,
         }
     }
 
@@ -21,24 +19,40 @@ export default class Login extends React.Component {
     }
 
     signup = async () => {
+        let sign = await Axios.post("api/signup", { email: this.state.email });
+        if (!sign.data.success) {
+            // handle error
+            return;
+        }
 
+        this.setState({ signup: true });
     }
 
-    redirect = () => {
-        if (this.state.redirect)
-            return <Navigate to={this.state.redirect} />
+    renderNotice = () => {
+        if (this.state.signup) {
+            return (
+                <div id="signupNotice">
+                    Please check your email and click on the link to verify your token. Then, login with your token.
+                </div>
+            )
+        } else {
+            return (
+                <React.Fragment>
+                    <div id="loginTitle">Signup</div>
+                    <div id="loginHolder">
+                        <input id="loginInput" placeholder="Email" onChange={this.onChange} />
+                        <button id="loginInputBtn" onClick={this.signup}>Signup</button>
+                    </div>
+                </React.Fragment>
+            )
+        }
     }
 
     render() {
         return (
             <React.Fragment>
-                {this.redirect()}
                 <div id="pageWrapper">
-                    <div id="loginTitle">Signup</div>
-                    <div id="loginHolder">
-                        <input id="loginInput" placeholder="Email" onChange={this.onChange} />
-                        <button id="loginInputBtn">Signup</button>
-                    </div>
+                    {this.renderNotice()}
                 </div>
             </React.Fragment>
         )

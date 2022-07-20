@@ -7,6 +7,8 @@ import Navbar from "./components/navbar/navbar.js";
 /* PAGES */
 import Home from "./pages/home/home.js";
 import Login from "./pages/login/login.js";
+import Signup from "./pages/signup/signup.js";
+import Profile from "./pages/profile/profile.js";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,7 +21,9 @@ export default class App extends React.Component {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </Router>
     )

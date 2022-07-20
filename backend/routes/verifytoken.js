@@ -3,17 +3,17 @@ const Router = Express.Router();
 
 const DataManager = require("../modules/DataManager.js");
 
-Router.post("/", async (req, res) => {
+Router.get("/", async (req, res) => {
     let requestIp = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     let id = req.query.identifier;
 
-    let v = DataManager.VerifyToken(id);
-    if (!v) return res.status(401).send({ success: false, error: "Invalid Identification" });
+    let v = await DataManager.VerifyToken(id);
+    if (!v) return res.send({ success: false, error: "Invalid Identification" });
 
-    res.status(200).send({ success: true, token: v });
+    res.send({ success: true, token: v });
 });
 
 module.exports = {
-    path: "verifytoken",
+    path: "verify",
     router: Router
 }

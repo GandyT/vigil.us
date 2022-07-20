@@ -1,5 +1,5 @@
 var sess = {
-    token: ""
+    token: "",
 }
 
 var SessionManager = {

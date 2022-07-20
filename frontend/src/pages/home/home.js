@@ -23,8 +23,8 @@ export default class Home extends React.Component {
                 {this.redirect()}
                 <div id="pageWrapper">
                     <div id="homeHeading">
-                        <div id="homeSignup" className="homeBtn" onClick={() => { this.setState({ redirect: "/signup" }) }}>Signup</div>
-                        <div id="homeLogin" className="homeBtn" onClick={() => { this.setState({ redirect: "/login" }) }}>Login</div>
+                        <button id="homeSignup" className="homeBtn" onClick={() => { this.setState({ redirect: "/signup" }) }}>Signup</button>
+                        <button id="homeLogin" className="homeBtn" onClick={() => { this.setState({ redirect: "/login" }) }}>Login</button>
                     </div>
                 </div>
             </React.Fragment>
