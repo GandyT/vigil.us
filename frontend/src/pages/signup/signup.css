@@ -1,0 +1,24 @@
+#signupNotice {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(91, 165, 229);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    font-family: "Roboto";
+}
+
+#signupSuccess {
+    width: 100%;
+    font-size: 120px;
+    color: #fff;
+    padding-left: 20px;
+}
+
+#signupInstructions {
+    font-size: 20px;
+    width: 100%;
+    padding-left: 20px;
+    color: #fff;
+}

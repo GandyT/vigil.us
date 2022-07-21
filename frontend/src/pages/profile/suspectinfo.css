@@ -1,0 +1,73 @@
+#suspectInfoPage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    padding-top: 50px;
+    font-family: "Roboto";
+}
+
+.suspectInfoInputCont {
+    width: 100%;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.suspectInfoInputDesc {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.suspectInfoInput {
+    padding: 5px;
+    font-size: 20px;
+    color: #000;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.suspectInfoProp {
+    width: 100%;
+    font-size: 20px;
+    color: #000;
+    padding-left: 20px;
+}
+
+#btnCont {
+    width: 100%;
+    padding-left: 20px;
+    height: auto;
+}
+
+.suspectButton {
+    height: 40px;
+    margin-top: 20px;
+    width: 150px;
+    background: none;
+    border: none;
+    color: #000;
+    background: #aaa;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s all ease;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.suspectButton:hover {
+    transition: 0.6s all ease;
+    background: rgb(90, 90, 90);
+}
+
+#suspectInfoInput {
+    width: 450px;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(91, 165, 229);
+    padding: 20px;
+    border-radius: 5px;
+    margin-left: 2%;
+}

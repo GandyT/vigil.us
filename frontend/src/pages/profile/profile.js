@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import SessionManager from "../../SessionManager.js";
 import "../../App.css";
 import "./profile.css";
+import "./suspectinfo.css";
 import * as Axios from "axios";
 
 export default class Profile extends React.Component {
@@ -53,13 +54,13 @@ export default class Profile extends React.Component {
                     <div className="suspectProp">Address: {suspect.address || "Unknown"}</div>
                     <div className="suspectProp">Desc: {suspect.description ? suspect.desription.slice(0, Math.min(30, suspect.description.length)) : "Unknown"}</div>
                     <div className="suspectProp">Date-Reported: {suspect.dateReported}</div>
-                    <div className="suspectProp">Id: {suspect.id} </div>
+                    <div className="suspectProp">ID: {suspect.id} </div>
                     <button className="suspectManageBtn" onClick={() => this.setState({ suspectInfo: JSON.parse(JSON.stringify(this.state.suspects.find(s => s.id == suspect.id))) })}>Manage</button>
                 </div>
             )
         })
 
-        return renderData;
+        return renderData.length ? renderData : <div id="noSuspects">no suspects</div>;
     }
 
     addSuspect = async () => {
@@ -126,11 +127,15 @@ export default class Profile extends React.Component {
                     {this.redirect()}
                     <div id="pageWrapper">
                         <div id="profileHeader">
-                            <div id="token">{this.state.token}</div>
-                            <div id="creationDate">{this.state.creationDate}</div>
+                            <div id="stats">Stats</div>
+                            <div className="statsProp">Token: {this.state.token}</div>
+                            <div className="statsProp">Join-Date: {this.state.creationDate}</div>
+                            <div className="statsProp">Suspects: {this.state.suspects.length}</div>
                         </div>
                         <div id="profileSuspects">
-                            <button id="addSuspectBtn" onClick={this.addSuspect}>Add Suspect</button>
+                            <div id="addSuspects">
+                                <button id="addSuspectBtn" onClick={this.addSuspect}>Add Suspect</button>
+                            </div>
                             {this.renderSuspects()}
                         </div>
                     </div>
@@ -142,74 +147,78 @@ export default class Profile extends React.Component {
                 <React.Fragment>
                     {this.redirect()}
                     <div id="pageWrapper">
-                        <div className="suspectInfoInputCont">
-                            <div className="suspectInfoInputDesc">Name:</div>
-                            <input className="suspectInfoInput" value={this.state.suspectInfo.name} onChange={e => {
-                                // update reference
-                                this.state.suspectInfo.name = e.target.value;
-                                this.state.changeMade = true;
-                                this.forceUpdate();
-                            }} />
-                        </div>
-                        <div className="suspectInfoInputCont">
-                            <div className="suspectInfoInputDesc">Age:</div>
-                            <input className="suspectInfoInput" value={this.state.suspectInfo.age} onChange={e => {
-                                // update reference
-                                if (isNaN(e.target.value)) return;
+                        <div id="suspectInfoPage">
+                            <div id="suspectInfoInput">
+                                <div className="suspectInfoInputCont">
+                                    <div className="suspectInfoInputDesc">Name:</div>
+                                    <input className="suspectInfoInput" value={this.state.suspectInfo.name} onChange={e => {
+                                        // update reference
+                                        this.state.suspectInfo.name = e.target.value;
+                                        this.state.changeMade = true;
+                                        this.forceUpdate();
+                                    }} />
+                                </div>
+                                <div className="suspectInfoInputCont">
+                                    <div className="suspectInfoInputDesc">Age:</div>
+                                    <input className="suspectInfoInput" value={this.state.suspectInfo.age} onChange={e => {
+                                        // update reference
+                                        if (isNaN(e.target.value)) return;
 
-                                this.state.suspectInfo.age = e.target.value ? parseInt(e.target.value) : "";
-                                this.state.changeMade = true;
-                                this.forceUpdate();
-                            }} />
+                                        this.state.suspectInfo.age = e.target.value ? parseInt(e.target.value) : "";
+                                        this.state.changeMade = true;
+                                        this.forceUpdate();
+                                    }} />
+                                </div>
+                                <div className="suspectInfoInputCont">
+                                    <div className="suspectInfoInputDesc">Address:</div>
+                                    <input className="suspectInfoInput" value={this.state.suspectInfo.address} onChange={e => {
+                                        // update reference
+                                        this.state.suspectInfo.address = e.target.value;
+                                        this.state.changeMade = true;
+                                        this.forceUpdate();
+                                    }} />
+                                </div>
+                                <div className="suspectInfoInputCont">
+                                    <div className="suspectInfoInputDesc">Desc:</div>
+                                    <input className="suspectInfoInput" value={this.state.suspectInfo.description} onChange={e => {
+                                        // update reference
+                                        this.state.suspectInfo.description = e.target.value;
+                                        this.state.changeMade = true;
+                                        this.forceUpdate();
+                                    }} />
+                                </div>
+                                <div className="suspectInfoInputCont">
+                                    <div className="suspectInfoInputDesc">Twitter:</div>
+                                    <input className="suspectInfoInput" value={this.state.suspectInfo.socials.twitter} onChange={e => {
+                                        // update reference
+                                        this.state.suspectInfo.socials.twitter = e.target.value;
+                                        this.state.changeMade = true;
+                                        this.forceUpdate();
+                                    }} />
+                                </div>
+                                <div className="suspectInfoInputCont">
+                                    <div className="suspectInfoInputDesc">Instagram:</div>
+                                    <input className="suspectInfoInput" value={this.state.suspectInfo.socials.instagram} onChange={e => {
+                                        // update reference
+                                        this.state.suspectInfo.socials.instagram = e.target.value;
+                                        this.state.changeMade = true;
+                                        this.forceUpdate();
+                                    }} />
+                                </div>
+                                <div className="suspectInfoInputCont">
+                                    <div className="suspectInfoInputDesc">Youtube:</div>
+                                    <input className="suspectInfoInput" value={this.state.suspectInfo.socials.youtube} onChange={e => {
+                                        // update reference
+                                        this.state.suspectInfo.socials.youtube = e.target.value;
+                                        this.state.changeMade = true;
+                                        this.forceUpdate();
+                                    }} />
+                                </div>
+                                <div className="suspectInfoProp">Date-Reported: {this.state.suspectInfo.dateReported}</div>
+                                <div className="suspectInfoProp">Id: {this.state.suspectInfo.id}</div>
+                                {this.renderSaveButtons()}
+                            </div>
                         </div>
-                        <div className="suspectInfoInputCont">
-                            <div className="suspectInfoInputDesc">Address:</div>
-                            <input className="suspectInfoInput" value={this.state.suspectInfo.address} onChange={e => {
-                                // update reference
-                                this.state.suspectInfo.address = e.target.value;
-                                this.state.changeMade = true;
-                                this.forceUpdate();
-                            }} />
-                        </div>
-                        <div className="suspectInfoInputCont">
-                            <div className="suspectInfoInputDesc">Desc:</div>
-                            <input className="suspectInfoInput" value={this.state.suspectInfo.description} onChange={e => {
-                                // update reference
-                                this.state.suspectInfo.description = e.target.value;
-                                this.state.changeMade = true;
-                                this.forceUpdate();
-                            }} />
-                        </div>
-                        <div className="suspectInfoInputCont">
-                            <div className="suspectInfoInputDesc">Twitter:</div>
-                            <input className="suspectInfoInput" value={this.state.suspectInfo.socials.twitter} onChange={e => {
-                                // update reference
-                                this.state.suspectInfo.socials.twitter = e.target.value;
-                                this.state.changeMade = true;
-                                this.forceUpdate();
-                            }} />
-                        </div>
-                        <div className="suspectInfoInputCont">
-                            <div className="suspectInfoInputDesc">Instagram:</div>
-                            <input className="suspectInfoInput" value={this.state.suspectInfo.socials.instagram} onChange={e => {
-                                // update reference
-                                this.state.suspectInfo.socials.instagram = e.target.value;
-                                this.state.changeMade = true;
-                                this.forceUpdate();
-                            }} />
-                        </div>
-                        <div className="suspectInfoInputCont">
-                            <div className="suspectInfoInputDesc">Youtube:</div>
-                            <input className="suspectInfoInput" value={this.state.suspectInfo.socials.youtube} onChange={e => {
-                                // update reference
-                                this.state.suspectInfo.socials.youtube = e.target.value;
-                                this.state.changeMade = true;
-                                this.forceUpdate();
-                            }} />
-                        </div>
-                        <div className="suspectInfoProp">Date-Reported: {this.state.suspectInfo.dateReported}</div>
-                        <div className="suspectInfoProp">Id: {this.state.suspectInfo.id}</div>
-                        {this.renderSaveButtons()}
                     </div>
                 </React.Fragment>
             )

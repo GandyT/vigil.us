@@ -1,6 +1,7 @@
 import React from "react";
 import "../../App.css";
 import "../login/login.css";
+import "./signup.css"
 import * as Axios from "axios";
 
 export default class Login extends React.Component {
@@ -32,18 +33,22 @@ export default class Login extends React.Component {
         if (this.state.signup) {
             return (
                 <div id="signupNotice">
-                    Please check your email and click on the link to verify your token. Then, login with your token.
+                    <div id="signupSuccess">Success!</div>
+                    <div id="signupInstructions">Please check your email and click on the link to verify your token. Then, login with your token.</div>
                 </div>
             )
         } else {
             return (
                 <React.Fragment>
-                    <div id="loginTitle">Signup</div>
-                    <div id="loginHolder">
-                        <input id="loginInput" placeholder="Email" onChange={this.onChange} />
-                        <button id="loginInputBtn" onClick={this.signup}>Signup</button>
+                    <div id="loginCont">
+                        <div id="loginTitle">Signup</div>
+                        <div id="loginHolder">
+                            <input id="loginInput" placeholder="Email" onChange={this.onChange} />
+                            <button id="loginInputBtn" onClick={this.signup}>Signup</button>
+                            <div id="loginInputMessage">we do not save your email address</div>
+                        </div>
                     </div>
-                </React.Fragment>
+                </React.Fragment >
             )
         }
     }

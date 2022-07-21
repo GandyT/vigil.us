@@ -43,13 +43,16 @@ export default class Login extends React.Component {
             <React.Fragment>
                 {this.redirect()}
                 <div id="pageWrapper">
-                    <div id="loginTitle">Login</div>
-                    <div id="loginHolder">
-                        <input id="loginInput" placeholder="Input Token" onChange={this.onChange} />
-                        <button id="loginInputBtn" onClick={this.login}>Login</button>
-                        <div id="loginInputMessage">Input your 12 digit token</div>
+                    <div id="loginCont">
+                        <div id="loginTitle">Login</div>
+                        <div id="loginHolder">
+                            <input id="loginInput" placeholder="Input Token" onChange={this.onChange} />
+                            <button id="loginInputBtn" onClick={this.login}>Login</button>
+                            <div id="loginInputMessage">input your 12 digit token</div>
+                        </div>
                     </div>
                 </div>
+
             </React.Fragment>
         )
     }

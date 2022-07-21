@@ -10,6 +10,9 @@ export default class Navbar extends React.Component {
     render() {
         return (
             <div id="navbar">
+                <Link to="/">
+                    <div className="navLogo" />
+                </Link>
                 <Link to="/" className="navElem">
                     <div>Home</div>
                 </Link>

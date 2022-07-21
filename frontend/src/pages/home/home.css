@@ -1,0 +1,82 @@
+#homeHeading {
+    width: 100%;
+    min-height: 400px;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: rgb(91, 165, 229);
+}
+
+#homeTitleCont {
+    width: 80%;
+    display: flex;
+    height: 200px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#homeTitle {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    font-family: 'Roboto';
+}
+
+#homeDesc {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    color: rgb(52, 52, 52);
+}
+
+#homeBtnCont {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.homeBtn {
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 150px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    font-size: 20px;
+    font-family: 'Roboto';
+    cursor: pointer;
+}
+
+#homeSignup {
+    transition: 0.3s all ease;
+    background-color: rgb(36, 68, 58);
+    color: #fff;
+}
+
+#homeSignup:hover {
+    transition: 0.6s all ease;
+    background-color: rgb(31, 53, 46);
+    color: rgb(189, 189, 189);
+}
+
+#homeLogin {
+    transition: 0.3s all ease;
+    background-color: rgb(40, 71, 99);
+    color: #fff;
+}
+
+#homeLogin:hover {
+    transition: 0.6s all ease;
+    background-color: rgb(30, 52, 71);
+    color: rgb(189, 189, 189);
+}
