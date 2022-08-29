@@ -1,4 +1,5 @@
 const Fs = require("fs");
+const getTweets = require("./getTweets.js")
 
 /* 
 TEMPORARY ASYNC IN PREPARATION FOR ONLINE DATABASE
@@ -87,7 +88,8 @@ const CreateSuspect = async data => {
     if (!data.socials.twitter) data.socials.twitter = "";
     if (!data.socials.instagram) data.socials.instagram = "";
     if (!data.socials.youtube) data.socials.youtube = "";
-
+    if (!data.socials.tweets) data.socials.tweets = [];
+    
     Fs.writeFileSync(__dirname + "/../data/suspects/" + suspectId + ".json", JSON.stringify(data));
     return suspectId;
 }
@@ -108,7 +110,13 @@ const UpdateSuspect = async (token, data) => {
             d[key] = data[key];
     }
 
-    Fs.writeFileSync(__dirname + "/../data/suspects/" + data.id + ".json", JSON.stringify(data));
+    if (d.socials.twitter) {
+        d.socials.tweets = await getTweets(d.socials.twitter);
+    } else {
+        d.socials.tweets = [];
+    }
+
+    Fs.writeFileSync(__dirname + "/../data/suspects/" + d.id + ".json", JSON.stringify(d));
 
     return true;
 }

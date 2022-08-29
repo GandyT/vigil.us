@@ -71,7 +71,8 @@ export default class Profile extends React.Component {
             socials: {
                 twitter: "",
                 instagram: "",
-                youtube: ""
+                youtube: "",
+                tweets: []
             },
             description: "",
             files: [], // <- upload to backend server first, then get urls
@@ -99,7 +100,7 @@ export default class Profile extends React.Component {
         if (!susSave.data.success) {
             return this.setState({ redirect: "/" })
         }
-        let newSuspects = [...this.state.suspects.filter(s => s.id != this.state.suspectInfo.id), this.state.suspectInfo];
+        let newSuspects = [...this.state.suspects.filter(s => s.id != this.state.suspectInfo.id), susSave.data.data];
         this.setState({ changeMade: false, suspects: newSuspects, suspectInfo: "" });
     }
 
@@ -118,6 +119,24 @@ export default class Profile extends React.Component {
                 <button className="suspectButton" id="backBtn" onClick={() => this.setState({ suspectInfo: "" })}>Back</button>
             </div>
         }
+    }
+
+    renderTweets = () => {
+        let tweetComps = [];
+        this.state.suspectInfo.socials.tweets.forEach(tweet => {
+            let bgColor;
+            if (tweet.sentiment.sentiment == "Negative") {
+                bgColor = "#c0392b"
+            } else if (tweet.sentiment.sentiment == "Positive") {
+                bgColor = "#2ecc71"
+            } else {
+                // neutral
+                bgColor = "#f1c40f"
+            }
+            tweetComps.push(<div className="tweetCont" style={{backgroundColor: bgColor}}>{tweet.tweet}</div>)
+        })
+
+        return tweetComps;
     }
 
     render() {
@@ -217,6 +236,10 @@ export default class Profile extends React.Component {
                                 <div className="suspectInfoProp">Date-Reported: {this.state.suspectInfo.dateReported}</div>
                                 <div className="suspectInfoProp">Id: {this.state.suspectInfo.id}</div>
                                 {this.renderSaveButtons()}
+                            </div>
+                            <div id="suspectTweets">
+                                <div id="tweetsTitle">Previous Tweets</div>
+                                {this.renderTweets()}
                             </div>
                         </div>
                     </div>

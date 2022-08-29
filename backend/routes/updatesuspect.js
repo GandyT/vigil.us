@@ -15,12 +15,14 @@ Router.post("/", async (req, res) => {
     if (!data) return res.send({ success: false, error: "Invalid Token" });
 
     let validUpdate = await DataManager.UpdateSuspect(token, updateData);
-    if (!validUpdate) return res.send({ success: false });
+    if (!validUpdate) return res.send({ success: false, error: "Invalid Update" });
 
-    res.send({ success: true });
+    let updatedSuspect = await DataManager.GetSuspectData(updateData.id);
+
+    res.send({ success: true, data: updatedSuspect });
 });
 
-module.exports = {
+module.exports = { 
     path: "updatesuspect",
     router: Router
 }

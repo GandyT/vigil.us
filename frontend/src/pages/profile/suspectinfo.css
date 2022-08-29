@@ -4,6 +4,7 @@
     display: flex;
     align-content: flex-start;
     flex-wrap: wrap;
+    justify-content: space-around;
     padding-top: 50px;
     font-family: "Roboto";
 }
@@ -63,11 +64,43 @@
 
 #suspectInfoInput {
     width: 450px;
-    height: auto;
+    height: 750px;
     display: flex;
     flex-wrap: wrap;
     background-color: rgb(91, 165, 229);
     padding: 20px;
     border-radius: 5px;
     margin-left: 2%;
+    margin-top: 30px;
+}
+
+#suspectTweets {
+    width: 600px;
+    height: 750px;
+    overflow: scroll;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+#tweetsTitle {
+    width: 100%;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tweetCont {
+    width: 80%;
+    height: 100px;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 5px;
 }
