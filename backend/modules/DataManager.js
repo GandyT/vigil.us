@@ -89,6 +89,7 @@ const CreateSuspect = async data => {
     if (!data.socials.instagram) data.socials.instagram = "";
     if (!data.socials.youtube) data.socials.youtube = "";
     if (!data.socials.tweets) data.socials.tweets = [];
+    if (!data.files) data.files = [];
     
     Fs.writeFileSync(__dirname + "/../data/suspects/" + suspectId + ".json", JSON.stringify(data));
     return suspectId;
@@ -105,15 +106,16 @@ const UpdateSuspect = async (token, data) => {
     if (!d) return false;
     if (d.authToken != token) return false;
 
+    if (data.socials.twitter) {
+        if (d.socials.twitter != data.socials.twitter)
+            data.socials.tweets = await getTweets(d.socials.twitter);
+    } else {
+        data.socials.tweets = [];
+    }
+
     for (let key of Object.keys(d)) {
         if (data[key])
             d[key] = data[key];
-    }
-
-    if (d.socials.twitter) {
-        d.socials.tweets = await getTweets(d.socials.twitter);
-    } else {
-        d.socials.tweets = [];
     }
 
     Fs.writeFileSync(__dirname + "/../data/suspects/" + d.id + ".json", JSON.stringify(d));

@@ -16,7 +16,7 @@ export default class Profile extends React.Component {
             suspects: [],
             redirect: "",
             suspectInfo: "",
-            changeMade: false
+            selected: ""
         }
     }
 
@@ -96,7 +96,22 @@ export default class Profile extends React.Component {
 
     saveSuspect = async () => {
         // update suspect on axios
+        if (this.state.selected) {
+            const formData = new FormData();
+            formData.append('file', this.state.selected);
+            
+            let evidenceData = await Axios.post("api/submitevidence", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                } 
+            });
+
+            let evidenceName = evidenceData.data.fileName;
+            this.state.suspectInfo.files.push(evidenceName);
+        }
         let susSave = await Axios.post("api/updatesuspect", { token: SessionManager.GetToken(), data: this.state.suspectInfo });
+        
+
         if (!susSave.data.success) {
             return this.setState({ redirect: "/" })
         }
@@ -123,7 +138,7 @@ export default class Profile extends React.Component {
 
     renderTweets = () => {
         let tweetComps = [];
-        this.state.suspectInfo.socials.tweets.forEach(tweet => {
+        this.state.suspectInfo.socials.tweets.forEach((tweet, i) => {
             let bgColor;
             if (tweet.sentiment.sentiment == "Negative") {
                 bgColor = "#c0392b"
@@ -133,10 +148,15 @@ export default class Profile extends React.Component {
                 // neutral
                 bgColor = "#f1c40f"
             }
-            tweetComps.push(<div className="tweetCont" style={{backgroundColor: bgColor}}>{tweet.tweet}</div>)
+            tweetComps.push(<div key={i} className="tweetCont" style={{backgroundColor: bgColor}}>{tweet.tweet}</div>)
         })
 
         return tweetComps;
+    }
+
+    uploadFile = async event => {
+        const file = event.target.files[0];
+        this.setState({ selected: file, changeMade: true })
     }
 
     render() {
@@ -240,6 +260,11 @@ export default class Profile extends React.Component {
                             <div id="suspectTweets">
                                 <div id="tweetsTitle">Previous Tweets</div>
                                 {this.renderTweets()}
+                            </div>
+                            <div id="formCont">
+                                <form id="uploadForm" encType="multipart/form-data" onChange={this.uploadFile}>
+                                    <input type="file" id="uploadImage" name="file" />
+                                </form>
                             </div>
                         </div>
                     </div>

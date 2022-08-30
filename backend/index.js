@@ -7,6 +7,7 @@ const Fs = require("fs");
 const cors = require("cors");
 const path = require("path");
 const BodyParser = require("body-parser");
+const FileUpload = require("express-fileupload")
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -16,6 +17,7 @@ const port = process.env.PORT || 80;
 App.use(cors());
 App.use(BodyParser.json());
 App.use(BodyParser.urlencoded({ extended: false }));
+App.use(FileUpload({ createParentPath: true }))
 
 /* ROUTES */
 let files = Fs.readdirSync("routes");
