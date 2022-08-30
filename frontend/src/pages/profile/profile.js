@@ -159,6 +159,18 @@ export default class Profile extends React.Component {
         this.setState({ selected: file, changeMade: true })
     }
 
+    renderEvidence = () => {
+        let evidences = [];
+
+        for (let evidence of this.state.suspectInfo.files) {
+            evidences.push(<div className="evidenceCard" onClick={() => {
+                window.open(`http://${window.location.hostname}/evidence/${evidence}`, "_blank")
+            }}>{evidence}</div>)
+        }
+
+        return evidences;
+    }
+
     render() {
         if (!this.state.suspectInfo) {
             return (
@@ -262,9 +274,11 @@ export default class Profile extends React.Component {
                                 {this.renderTweets()}
                             </div>
                             <div id="formCont">
+                                <div id="uploadMessage">Upload Evidence</div>
                                 <form id="uploadForm" encType="multipart/form-data" onChange={this.uploadFile}>
                                     <input type="file" id="uploadImage" name="file" />
                                 </form>
+                                {this.renderEvidence()}
                             </div>
                         </div>
                     </div>
