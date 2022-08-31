@@ -4,8 +4,8 @@ an app that prevents gun violence with the help of citizens
 
 # TODO
 
-Create a file upload system
+Security
 
-Design Revamp
+Bug Fix
 
-Done
+Design Revamps
