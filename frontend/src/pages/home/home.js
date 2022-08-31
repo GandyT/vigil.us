@@ -103,7 +103,7 @@ export default class Home extends React.Component {
                         <div className="shooterCardProp">
                             prior-signs: {shooter.priorSigns == "-" ? "None" : shooter.mentalHealth}
                         </div>
-                        <div className="shooterCardProp">
+                        <div className="shooterCardType">
                             {shooter.type} Murder - {shooter.year}
                         </div>
                     </div>

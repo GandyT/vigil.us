@@ -123,6 +123,17 @@ const UpdateSuspect = async (token, data) => {
     return true;
 }
 
+const DeleteSuspect = async id => {
+    if (Fs.existsSync(__dirname + "/../data/suspects/" + id + ".json")) {
+        let suspectData = JSON.parse(Fs.readFileSync(__dirname + "/../data/suspects/" + id + ".json"));
+        Fs.unlinkSync(__dirname + "/../data/suspects/" + id + ".json");
+        let authToken = suspectData.authToken;
+        let user = await GetUserData(authToken);
+        user.suspects = user.suspects.filter(suspect => suspect != id);
+        await UpdateUserData(authToken, user);
+    }
+}
+
 module.exports = {
     GenerateToken: GenerateToken,
     GetFormattedDate: GetFormattedDate,
@@ -133,6 +144,7 @@ module.exports = {
     CreateSuspect: CreateSuspect,
     GetSuspectData: GetSuspectData,
     UpdateSuspect: UpdateSuspect,
+    DeleteSuspect: DeleteSuspect,
     CreateVerifyToken: CreateVerifyToken,
     VerifyToken: VerifyToken
 }

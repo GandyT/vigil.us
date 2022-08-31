@@ -43,12 +43,21 @@ export default class Profile extends React.Component {
             return <Navigate to={this.state.redirect} />
     }
 
+
+    deleteSuspect = async (id) => {
+        let deleteSuspect = await Axios.post("api/deletesuspect", { token: SessionManager.GetToken(), id: id});
+        if (deleteSuspect.data.success) {
+            this.setState({ suspects: this.state.suspects.filter(suspect => suspect.id != id)})
+        }
+    }
+
     renderSuspects = () => {
         let renderData = [];
 
         this.state.suspects.forEach((suspect, i) => {
             renderData.push(
                 <div className="suspectCont" key={i}>
+                    <div className="deleteSuspect" onClick={() => this.deleteSuspect(suspect.id)}>Delete</div>
                     <div className="suspectProp">Name: {suspect.name || "Unknown"}</div>
                     <div className="suspectProp">Age: {suspect.age || "Unknown"}</div>
                     <div className="suspectProp">Address: {suspect.address || "Unknown"}</div>
@@ -162,10 +171,12 @@ export default class Profile extends React.Component {
     renderEvidence = () => {
         let evidences = [];
 
+        let i = 0;
         for (let evidence of this.state.suspectInfo.files) {
-            evidences.push(<div className="evidenceCard" onClick={() => {
+            evidences.push(<div key={i} className="evidenceCard" onClick={() => {
                 window.open(`http://${window.location.hostname}/evidence/${evidence}`, "_blank")
             }}>{evidence}</div>)
+            i++;
         }
 
         return evidences;
