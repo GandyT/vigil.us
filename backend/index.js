@@ -18,7 +18,7 @@ App.use(cors());
 App.use(BodyParser.json());
 App.use(BodyParser.urlencoded({ extended: false }));
 App.use(FileUpload({ createParentPath: true }))
-// App.use(Express.static(path.join(__dirname, "../frontend/build/")))
+App.use(Express.static(path.join(__dirname, "../frontend/build/")))
 App.use("/evidence", Express.static(path.join(__dirname, "/data/files")))
 
 /* ROUTES */

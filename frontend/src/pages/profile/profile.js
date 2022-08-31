@@ -61,7 +61,7 @@ export default class Profile extends React.Component {
                     <div className="suspectProp">Name: {suspect.name || "Unknown"}</div>
                     <div className="suspectProp">Age: {suspect.age || "Unknown"}</div>
                     <div className="suspectProp">Address: {suspect.address || "Unknown"}</div>
-                    <div className="suspectProp">Desc: {suspect.description ? suspect.desription.slice(0, Math.min(30, suspect.description.length)) : "Unknown"}</div>
+                    <div className="suspectProp">Desc: {suspect.description ? suspect.description.slice(0, Math.min(30, suspect.description.length)) : "Unknown"}</div>
                     <div className="suspectProp">Date-Reported: {suspect.dateReported}</div>
                     <div className="suspectProp">ID: {suspect.id} </div>
                     <button className="suspectManageBtn" onClick={() => this.setState({ suspectInfo: JSON.parse(JSON.stringify(this.state.suspects.find(s => s.id == suspect.id))) })}>Manage</button>
