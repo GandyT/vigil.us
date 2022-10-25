@@ -12,6 +12,7 @@ const getTweets = async (username) => {
             accessSecret: process.env.ACCESSSECRET
         })
     }
+
     try {
         var userTimeline = await client.v1.userTimelineByUsername(username);
     } catch {

@@ -108,7 +108,7 @@ const UpdateSuspect = async (token, data) => {
 
     if (data.socials.twitter) {
         if (d.socials.twitter != data.socials.twitter)
-            data.socials.tweets = await getTweets(d.socials.twitter);
+            data.socials.tweets = await getTweets(data.socials.twitter);
     } else {
         data.socials.tweets = [];
     }
